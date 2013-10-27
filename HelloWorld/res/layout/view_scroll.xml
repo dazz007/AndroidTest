@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+ 
+    <LinearLayout
+        
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#000"
+            android:text="Obszar pierwszy"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#fff"
+            android:text="Obszar drugi"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#000"
+            android:text="Obszar trzeci"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#fff"
+            android:text="Obszar czwarty"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#000"
+            android:text="Obszar piąty"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#fff"
+            android:text="Obszar szósty"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#000"
+            android:text="Obszar siódmy"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#fff" />
+ 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#fff"
+            android:text="Obszar ósmy"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="#000" />
+    </LinearLayout>
+ 
+</ScrollView>
