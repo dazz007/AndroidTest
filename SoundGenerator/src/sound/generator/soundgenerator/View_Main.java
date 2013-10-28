@@ -23,11 +23,11 @@ public class View_Main extends Activity implements OnClickListener{
 	
 	// originally from http://marblemice.blogspot.com/2010/04/generate-and-play-tone-in-android.html
     // and modified by Steve Pomeroy <steve@staticfree.info>
-    private final int duration = 10; // seconds
+    private final int duration = 1; // seconds
     private final int sampleRate = 44100;
     private final int numSamples = duration * sampleRate;
     private final double sample[] = new double[numSamples];
-    private final double freqOfTone = 18000; // hz
+    private final double freqOfTone = 20000; // hz
     private boolean state = false;
     private final byte generatedSnd[] = new byte[2 * numSamples];
     private AudioTrack audioTrack;
@@ -41,11 +41,10 @@ public class View_Main extends Activity implements OnClickListener{
 		setContentView(R.layout.view_main);
 		button = (Button) findViewById(R.id.button1);
 		button.setOnClickListener(this);
-		tv1 = (TextView) findViewById(R.id.tv_thread);
 		handler = new Handler() {
 			public void handleMessage(Message msg){
 				super.handleMessage(msg);
-				tv1.setText(msg.obj.toString());
+				button.setText(msg.obj.toString());
 			}
 		};
 	}
@@ -60,46 +59,26 @@ public class View_Main extends Activity implements OnClickListener{
 	
 	@Override
 	public void onClick(View v) {
+		// Tworzymy now¹ wiadomoœæ
+       
 		genTone();
 		if(state == false){
 			state = true;
-			
+			new Thread(new Runnable() {
+		        public void run() {
+		        	 Message wiadomosc = new Message();
+			        	playSound();
+			        	wiadomosc.obj = "Sound playing";
+						handler.sendMessage(wiadomosc);
+		        	}
+		    }).start();
 		}else{
+			Message wiadomosc = new Message();
 			pauseSound();
-				state = false;
+			wiadomosc.obj = "Sound paused";
+			handler.sendMessage(wiadomosc);
+			state = false;
 		}
-//		playSound();
-		new Thread(new Runnable() {
-	        public void run() {
-		        	playSound();
-	        	}
-	    }).start();
-		
-		
-		
-		
-//			 // Use a new tread as this can take a while
-//	        Thread thread = new Thread(new Runnable() {
-//	            public void run() {
-//	                
-//	                playSound();
-//	                Message wiadomosc = new Message();
-//	                wiadomosc.obj = "Druga próbka";
-//	                handler.sendMessage(wiadomosc);
-////            		playSound();
-//            		wiadomosc.obj = "Koniec próbek";
-//            		handler.sendMessage(wiadomosc);
-////	                handler.post(new Runnable() {
-////	
-////	                    public void run() {
-//////	                    	while(state == false){
-////	                    		playSound();
-//////	                    	}
-////	                    }
-////	                });
-//	            }
-//	        });
-//	        thread.start();
 
 	}
 	
@@ -108,7 +87,6 @@ public class View_Main extends Activity implements OnClickListener{
         for (int i = 0; i < numSamples; ++i) {
             sample[i] = Math.sin(freqOfTone * 2 * Math.PI * i / sampleRate);
         }
-
         // convert to 16 bit pcm sound array
         // assumes the sample buffer is normalised.
         int idx = 0;
@@ -124,7 +102,6 @@ public class View_Main extends Activity implements OnClickListener{
 	
 	
 	void pauseSound(){
-		
 		this.audioTrack.pause();
 	}
 	
@@ -133,16 +110,10 @@ public class View_Main extends Activity implements OnClickListener{
                 sampleRate, AudioFormat.CHANNEL_OUT_STEREO,
                 AudioFormat.ENCODING_PCM_16BIT, numSamples,
                 AudioTrack.MODE_STATIC);
-        audioTrack.play();
-        audioTrack.setLoopPoints(0, generatedSnd.length/2 , -1);
-        audioTrack.write(generatedSnd, 0, numSamples);
         
-        	
-        	
-        	
-//        	audioTrack.play();
-        	
-        	
+        audioTrack.write(generatedSnd, 0, numSamples);
+        audioTrack.setLoopPoints(0, generatedSnd.length/8 , -1);
+        audioTrack.play();
     }
 	
 	
